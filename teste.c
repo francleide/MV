@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 
+//estrutura da lista (no)
 typedef struct No{
     char valor[8];
     struct No *proximo;
@@ -25,7 +26,7 @@ void inserir(No **ant, char x[]){
 	(*ant)->proximo=novo;
 	*ant=novo;
 }
-//insere para todas as funcoes -- TESTAR
+//escreve para a funcao random -- TESTAR
 void escrever(No **no,int pos, char x[]){
 	No *aux=*no;
 	int cont;
@@ -63,25 +64,32 @@ int busca_valor(No **no, char x[]){
 	while(strcmp(aux->valor,x)!=0){
 		aux=aux->proximo;
 		cont++;
-	}
+	}if(strcmp(aux->valor,x)==0)
 	return cont;
+	else
+	return -1;
 }
 
 
 
 void fifo(No *no, char x[]){
-
-	
+remover(no,busca_pos(&no,0));
+inserir(&no,x);	
 }
 void lru(No *no, char x[]){
-	
+remover(no,busca_pos(&no,0));
+inserir(&no,x);		
 /*pode ser feita com comparacao utilizando a busca até q seja 
 igual p/ poder ser removido o valor atualizado	
 */
 }
-void random(No *no, char x[]){
-
-	
+void random(No *no, char x[],int i){
+int n,y;
+srand((unsigned)time(NULL));
+n=(rand()%i);
+//escrever na posicao
+y=busca_valor(&no,busca_pos(&no,n));
+escrever(&no,y,x);	
 }
 
 
@@ -126,6 +134,57 @@ int main (int argc, char *argv[]) {
 					printf("nao eh primeiro %s\n",cauda->valor);
 				}
 				cont_page++;
+			}
+		}else
+		if(strcmp(substituicao,l)==0){//essa substituicao esta OK
+			if(strcmp(ch2,w)==0){
+				lru(no,ch3);
+			}
+			if(strcmp(ch2,k)==0){
+				int i;
+				i= busca_valor(&cabeca,ch3);
+				if(i!=-1){
+					char x[8];
+					strcpy(x, busca_pos(&cabeca,i));
+					remover(cabeca,x);
+					lru(cabeca,x);
+					cont_hit++;
+				}else
+				cont_miss++;
+			}
+		}
+		if(strcmp(substituicao,r)==0){//essa substituicao tem que TESTAR
+			if(strcmp(ch2,w)==0){
+				random(cabeca,ch3,cont_page);
+			}
+			if(strcmp(ch2,k)==0){
+				int i;
+				i= busca_valor(&cabeca,ch3);
+				if(i!=-1){
+					char x[8];
+					strcpy(x, busca_pos(&cabeca,i));
+					remover(cabeca,x);
+					random(cabeca,x,cont_page);
+					cont_hit++;
+				}else
+				cont_miss++;
+			}
+		}
+		if(strcmp(substituicao,f)==0){//essa substituicao tem que TESTAR
+			if(strcmp(ch2,w)==0){
+				fifo(cabeca,ch3);
+			}
+			if(strcmp(ch2,k)==0){
+				int i;
+				i= busca_valor(&cabeca,ch3);
+				if(i!=-1){
+					char x[8];
+					strcpy(x, busca_pos(&cabeca,i));
+					remover(cabeca,x);
+					fifo(cabeca,x);
+					cont_hit++;
+				}else
+				cont_miss++;	
 			}
 		}
 	}
