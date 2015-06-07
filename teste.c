@@ -94,10 +94,10 @@ imprimir();
 int i= busca_valor(informacao);	
 	if(strcmp(wr,W)==0){
 		if(i==-1){
-				remover();
-				inserir(informacao);	
+			remover();
+			inserir(informacao);	
 		}else {
-			trocar(informacao);
+			escrever(i,informacao);
 		}
 		op_escrita++;
 	}
@@ -121,8 +121,8 @@ void s_lru(char informacao[],char wr[]){
 	int i= busca_valor(informacao);	
 	if(strcmp(wr,W)==0){
 		if(i==-1){
-				remover();
-				inserir(informacao);
+			remover();
+			inserir(informacao);
 		}else {
 			trocar(informacao);
 		}
