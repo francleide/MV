@@ -107,12 +107,13 @@ int i= busca_valor(informacao);
 			inserir(informacao);
 			op_escrita++;
 			cont_miss++;
+			fault++;
 		}else{
 			cont_hit++;
 		}
 		op_leitura++;
 		}
-		fault++;
+		
 		write_backs++;
 }
 //funcao de substituicao lru
@@ -134,13 +135,13 @@ void s_lru(char informacao[],char wr[]){
 			inserir(informacao);
 			op_escrita++;
 			cont_miss++;
-		
+			fault++;
 		}else{
 			cont_hit++;
 			trocar(informacao);
 		}
 		op_leitura++;
-		fault++;
+		
 		}
 		
 		write_backs++;
@@ -164,12 +165,12 @@ void s_random(char informacao[],char wr[],int cont_page){
 	if(strcmp(wr,R)==0){
 		if(i==-1){
 			escrever(n,informacao);	
-			cont_miss++;			
+			cont_miss++;
+			fault++;			
 		}else{
 			cont_hit++;
 		}
 		op_leitura++;
-		fault++;
 		}
 		
 		write_backs++;
