@@ -140,8 +140,9 @@ void s_lru(char informacao[],char wr[]){
 			trocar(informacao);
 		}
 		op_leitura++;
-		}
 		fault++;
+		}
+		
 		write_backs++;
 }
 //funcao de substituicao random
@@ -168,8 +169,9 @@ void s_random(char informacao[],char wr[],int cont_page){
 			cont_hit++;
 		}
 		op_leitura++;
-		}
 		fault++;
+		}
+		
 		write_backs++;
 }
 
