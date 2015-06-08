@@ -32,7 +32,7 @@ void inserir(char x[]){
 	cauda->proximo=novo;
 	cauda=novo;
 }
-//escreve para a funcao random e quano for a mesma informacao -- TESTAR
+//escreve para a funcao random e quano for a mesma informacao -- OK
 void escrever(int pos, char x[9]){
 	No *aux=cabeca;
 	int cont;
@@ -52,7 +52,7 @@ void remover(){
 	}
 	cabeca=cabeca->proximo;
 }
-//trocar o valor encontrado para tornalo recente
+//trocar o valor encontrado para torna-lo recente
 void trocar(char x[]){
 	No *atual=cabeca, *ant=NULL;
 	while(atual!=NULL){
@@ -183,9 +183,10 @@ int main (int argc, char *argv[]) {
 	FILE *arquivo = fopen(argv[2],"r");
 	int t_pagina = atoi(argv[3]), t_memoria= atoi(argv[4]), pos=0;
 	int qtd_pagina=t_memoria/t_pagina, cont_page=0, i;
+	clock_t inicio,fim;
 	unsigned int tx_pagefault;
 	no= (No*) malloc(sizeof(No));
-	
+	inicio=clock();
     //retorna um erro se o tamanho da paginacao estiver fora do intervalo permitido
 	if(t_pagina<2 || t_pagina>64){
 		printf("Erro! Esse tamanho de paginacao nao e possivel\n");
@@ -202,7 +203,7 @@ int main (int argc, char *argv[]) {
 		return 0;
     }
     
-    //essa forma está correta! -- OK
+    //essa forma esta correta! -- OK
 	while(fscanf(arquivo,"%s %s\n",informacao,ch2)!=EOF){   
         if(cont_page<qtd_pagina){		
     		if(strcmp(ch2,R)==0){
@@ -275,21 +276,24 @@ int main (int argc, char *argv[]) {
     printf("Tamanho da memoria: %i KB\n", t_memoria);
     printf("Tamanho das paginas: %i KB\n", t_pagina);
     printf("Tecnica de reposicao: %s\n", substituicao);
+    printf("Numero de paginas: %i\n", qtd_pagina);
     printf("Operacoes no arquivo de entrada: %i\n", op_entrada);
     printf("Operacoes de leitura: %i\nOperacoes de escrita: %i\n", op_leitura, op_escrita);
     printf("Page Hits: %i \nPage Misses: %i\n", cont_hit, cont_miss);
     printf("Numero de writebacks: %i\n", write_backs);
 	printf("Taxa page fault: %i%%\n", tx_pagefault);
+	fim=clock();
+	printf("Tempo %f ms\n",(fim-inicio)/(float)CLOCKS_PER_SEC*1000);
 
     
     
     fclose(arquivo);
-    
-   /*free(cabeca);
-    free(cauda);*/
-    free(no);
+    No*aux = cabeca;
+  	while(aux!=NULL){
+        free(aux);
+        aux = aux->proximo;
+    }
     
     //system("pause");
 return 0;
 }
-
