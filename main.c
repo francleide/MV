@@ -32,7 +32,7 @@ void inserir(char x[]){
 	cauda->proximo=novo;
 	cauda=novo;
 }
-//escreve para a funcao random e quano for a mesma informacao -- TESTAR
+//escreve para a funcao random e quano for a mesma informacao -- OK
 void escrever(int pos, char x[9]){
 	No *aux=cabeca;
 	int cont;
@@ -52,7 +52,7 @@ void remover(){
 	}
 	cabeca=cabeca->proximo;
 }
-//trocar o valor encontrado para tornalo recente
+//trocar o valor encontrado para torna-lo recente
 void trocar(char x[]){
 	No *atual=cabeca, *ant=NULL;
 	while(atual!=NULL){
@@ -203,7 +203,7 @@ int main (int argc, char *argv[]) {
 		return 0;
     }
     
-    //essa forma está correta! -- OK
+    //essa forma esta correta! -- OK
 	while(fscanf(arquivo,"%s %s\n",informacao,ch2)!=EOF){   
         if(cont_page<qtd_pagina){		
     		if(strcmp(ch2,R)==0){
@@ -297,4 +297,3 @@ int main (int argc, char *argv[]) {
     //system("pause");
 return 0;
 }
-
